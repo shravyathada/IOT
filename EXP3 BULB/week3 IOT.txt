@@ -1,0 +1,28 @@
+#include<SoftwareSerial.h>
+SoftwareSerial BTSerial(10,11);
+const int irPin=13;
+void setup() {
+  
+  // put your setup code here, to run once:
+  pinMode(irPin,INPUT);
+  BTSerial.begin(9600);
+pinMode(12, OUTPUT) ;
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  int val;
+  val=digitalRead(irPin);
+  BTSerial.println(val);
+  if(val==0){
+  BTSerial.println("Obstacle is detected ");
+digitalwrite(12, HIGH) ;
+}
+  else{
+  BTSerial.println("no obstacle");
+digital.write(12, LOW) ;
+}
+  delay(1000);
+
+}

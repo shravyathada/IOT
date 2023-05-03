@@ -1,0 +1,39 @@
+#include<DHT.h>
+#define DHTPIN 13
+#define DHTTYPE DHT22
+DHT dht22(DHTPIN,DHTTYPE);
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+  Serial.println("DHT Sensors Test");
+  dht22.begin();
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  float h=dht22.readHumidity();
+  float t=dht22.readTemperature();
+  float f=dht22.readTemperature(true);
+float hif=dht22.computeHeatIndex(f,h);
+float hit=dht22.computeHeatIndex(f,h,false);
+if(isnan(h) || isnan(t) ||isnan(f))
+{
+  Serial.println("DHT Sensor is Failed");
+  return;
+}
+
+
+  Serial.print("Humidity: ");
+  Serial.println(h);
+  Serial.print("Teperature in celsius: ");
+  Serial.println(t);
+  Serial.print("Temperature in Fahrenheit: ");
+  Serial.println(f);
+  Serial.print("Heat Index in  celsius: ");
+  Serial.println(hit);
+  Serial.print("Heat Index in Fahrenheit: ");
+  Serial.println(hif);
+  delay(2000);
+
+}
